@@ -1,0 +1,15 @@
+{
+  "name": "devkitly",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web 在线工具集",
+  "license": "MIT",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build:web": "pnpm --filter web build",
+    "build:api": "pnpm --filter api build",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format"
+  }
+}

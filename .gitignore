@@ -1,0 +1,30 @@
+# 依赖文件
+node_modules/
+
+# 构建产物
+dist/
+
+# IDE 配置
+.vscode/
+.idea/
+.codeartsdoer
+.zcode
+.opencode
+.codex
+
+# 系统环境
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+npm-debug.log*
+
+# 环境文件
+.env
+.env.local
+.env.*.local
+
+# 本地环境文件
+*.tsbuildinfo
+coverage/

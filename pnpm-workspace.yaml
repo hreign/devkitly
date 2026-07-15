@@ -1,0 +1,5 @@
+packages:
+  - "web"
+  - "api"
+allowBuilds:
+  esbuild: true
