@@ -1,6 +1,5 @@
 import 'dotenv/config';
-import express from 'express';
-import serverless from 'serverless-http';
+import express, { Express } from 'express';
 import { i18nMiddleware } from './middlewares/i18n.js';
 import { authMiddleware } from './middlewares/auth.js';
 import { errorHandler } from './middlewares/error-handler.js';
@@ -12,7 +11,7 @@ import codecRouter from './routes/codec.js';
 import fileHashRouter from './routes/file-hash.js';
 import tokenRouter from './routes/token.js';
 
-const app = express();
+const app: Express = express();
 
 // 中间件
 app.use(express.json());
@@ -35,13 +34,15 @@ app.use('/token', tokenRouter);
 // 错误处理
 app.use(errorHandler);
 
-// Serverless 导出
-export const handler = serverless(app);
-
 // 本地开发启动
 const PORT = process.env.PORT || 3000;
-if (process.env.NODE_ENV !== 'production' || !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+if (
+  process.env.NODE_ENV !== 'production' ||
+  !process.env.AWS_LAMBDA_FUNCTION_NAME
+) {
   app.listen(PORT, () => {
     console.log(`API 服务已启动: http://localhost:${PORT}`);
   });
 }
+
+export default app;
