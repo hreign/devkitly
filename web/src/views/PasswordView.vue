@@ -9,18 +9,20 @@ import {
   NCheckbox,
   NInput,
   NButton,
-  NSpace,
   useMessage,
 } from 'naive-ui';
 import { usePassword } from '@/composables/usePassword';
 import { useHistory } from '@/composables/useHistory';
+import { useResponsive } from '@/composables/useResponsive';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
+import PageHeader from '@/components/PageHeader.vue';
 
 const { t } = useI18n();
 const message = useMessage();
 const { result, error, generate } = usePassword();
 const { recordUsage } = useHistory();
+const { isMobile } = useResponsive();
 
 const length = ref(16);
 const includeUpper = ref(true);
@@ -48,13 +50,15 @@ function handleGenerate() {
 
 <template>
   <div class="page-view">
-    <NCard :title="t('password.title')">
-      <template #header-extra>
-        <ApiDocModal feature-id="password" />
-      </template>
-      <NForm label-placement="left" label-width="auto">
+    <div class="page-header-row">
+      <PageHeader :title="t('password.title')" :description="t('password.description')" />
+      <ApiDocModal feature-id="password" />
+    </div>
+
+    <NCard class="form-card">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
         <NFormItem :label="t('password.length')">
-          <NInputNumber v-model:value="length" :min="8" :max="256" style="width: 100%;" />
+          <NInputNumber v-model:value="length" :min="4" :max="256" style="width: 100%;" />
         </NFormItem>
         <NFormItem :label="t('password.includeUpper')">
           <NCheckbox v-model:checked="includeUpper" />
@@ -72,9 +76,9 @@ function handleGenerate() {
           <NInput v-model:value="customSymbols" :placeholder="t('password.customSymbolsPlaceholder')" />
         </NFormItem>
         <NFormItem>
-          <NSpace>
-            <NButton type="primary" @click="handleGenerate">{{ t('common.generate') }}</NButton>
-          </NSpace>
+          <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleGenerate">
+            {{ t('common.generate') }}
+          </NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -87,5 +91,26 @@ function handleGenerate() {
 .page-view {
   max-width: 700px;
   margin: 0 auto;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-header-row :deep(.page-header) {
+  margin-bottom: 0;
+}
+
+.form-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-btn {
+  width: 100%;
 }
 </style>

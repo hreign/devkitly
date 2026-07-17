@@ -1,0 +1,116 @@
+:root {
+  /* 主色系 */
+  --color-primary: #1E293B;
+  --color-primary-light: #334155;
+  --color-primary-hover: #475569;
+
+  /* 强调色（CTA） */
+  --color-cta: #22C55E;
+  --color-cta-hover: #16A34A;
+  --color-cta-active: #15803D;
+
+  /* 背景 */
+  --color-bg-page: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #F1F5F9;
+  --color-bg-input: #FFFFFF;
+
+  /* 文字 */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94A3B8;
+  --color-text-inverse: #F8FAFC;
+
+  /* 边框 */
+  --color-border: #E2E8F0;
+  --color-border-hover: #CBD5E1;
+
+  /* 图标色 */
+  --color-icon: #64748B;
+  --color-icon-hover: #22C55E;
+
+  /* 分区装饰 */
+  --color-accent-bar: #22C55E;
+
+  /* 字体族 */
+  --font-family-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  /* 标题字号 */
+  --font-size-h1: 40px;
+  --font-size-h2: 32px;
+  --font-size-h3: 24px;
+  --font-size-h4: 20px;
+
+  /* 正文字号 */
+  --font-size-body: 15px;
+  --font-size-body-sm: 14px;
+  --font-size-caption: 13px;
+
+  /* 字重 */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* 行高 */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* 间距梯度 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  --color-primary: #F8FAFC;
+  --color-primary-light: #E2E8F0;
+  --color-primary-hover: #CBD5E1;
+
+  --color-cta: #22C55E;
+  --color-cta-hover: #4ADE80;
+  --color-cta-active: #16A34A;
+
+  --color-bg-page: #0F172A;
+  --color-bg-card: #1E293B;
+  --color-bg-elevated: #334155;
+  --color-bg-input: #1E293B;
+
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #CBD5E1;
+  --color-text-tertiary: #64748B;
+  --color-text-inverse: #0F172A;
+
+  --color-border: #334155;
+  --color-border-hover: #475569;
+
+  --color-icon: #94A3B8;
+  --color-icon-hover: #4ADE80;
+
+  --color-accent-bar: #22C55E;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}

@@ -22,13 +22,21 @@ export default {
   },
   home: {
     title: 'DevKitly',
-    subtitle: 'Developer\'s Online Toolkit',
+    subtitle: "Developer's Online Toolkit",
     recentUsage: 'Recently Used',
     frequentUsage: 'Most Used',
     allTools: 'All Tools',
+    qrDesc: 'Generate text or Wi-Fi QR codes',
+    uuidDesc: 'Generate v4/v5 unique identifiers',
+    passwordDesc: 'Generate custom random passwords',
+    hashDesc: 'Calculate MD5/SHA-256 text hashes',
+    codecDesc: 'Convert between Base64/Hex/URL formats',
+    fileHashDesc: 'Calculate file MD5/SHA-256 hashes',
+    tokenDesc: 'Generate custom prefix random tokens',
   },
   qr: {
     title: 'QR Code Generator',
+    description: 'Generate text or Wi-Fi QR codes with one-click copy and download',
     type: 'Type',
     text: 'Text',
     wifi: 'Wi-Fi',
@@ -48,6 +56,7 @@ export default {
   },
   uuid: {
     title: 'UUID Generator',
+    description: 'Batch generate v4 random or v5 namespace UUIDs',
     version: 'Version',
     count: 'Count',
     namespace: 'Namespace',
@@ -61,6 +70,7 @@ export default {
   },
   password: {
     title: 'Password Generator',
+    description: 'Generate secure random passwords with custom length and character types',
     length: 'Password Length',
     includeUpper: 'Include Uppercase',
     includeLower: 'Include Lowercase',
@@ -69,10 +79,11 @@ export default {
     customSymbols: 'Custom Symbols',
     customSymbolsPlaceholder: 'Leave empty to use default symbol set',
     atLeastOneCategory: 'At least one character category must be selected',
-    lengthRange: 'Password length must be between 8 and 256',
+    lengthRange: 'Password length must be between 4 and 256',
   },
   hash: {
     title: 'Text Hash',
+    description: 'Calculate text hashes using MD5 and SHA-256 algorithms',
     algorithm: 'Algorithm',
     text: 'Text',
     textPlaceholder: 'Enter text to hash',
@@ -81,6 +92,7 @@ export default {
   },
   codec: {
     title: 'Encode/Decode',
+    description: 'Convert between Base64, Hex, UTF-8, Unicode, and URL formats',
     from: 'Source Format',
     to: 'Target Format',
     text: 'Text',
@@ -92,6 +104,7 @@ export default {
   },
   fileHash: {
     title: 'File Hash',
+    description: 'Upload files to calculate MD5 or SHA-256 hash values',
     algorithm: 'Algorithm',
     upload: 'Upload File',
     fileSizeLimit: 'File size cannot exceed 100 MB',
@@ -101,6 +114,7 @@ export default {
   },
   token: {
     title: 'Token Generator',
+    description: 'Generate random tokens with custom prefix and length',
     prefix: 'Prefix',
     length: 'Length',
     count: 'Count',
@@ -138,7 +152,7 @@ export default {
       nameDesc: 'Name (required when version is v5)',
     },
     password: {
-      lengthDesc: 'Password length, range 8-256, default 16',
+      lengthDesc: 'Password length, range 4-256, default 16',
       includeUpperDesc: 'Include uppercase letters, default true',
       includeLowerDesc: 'Include lowercase letters, default true',
       includeNumberDesc: 'Include numbers, default true',

@@ -22,7 +22,7 @@ export function usePassword() {
 
     const { length, includeUpper, includeLower, includeNumber, includeSymbol, customSymbols } = options;
 
-    if (length < 8 || length > 256) {
+    if (length < 4 || length > 256) {
       error.value = 'lengthRange';
       return;
     }

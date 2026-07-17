@@ -7,21 +7,23 @@ import {
   NFormItem,
   NSelect,
   NButton,
-  NSpace,
   NUpload,
   NProgress,
   useMessage,
 } from 'naive-ui';
 import { useFileHash } from '@/composables/useFileHash';
 import { useHistory } from '@/composables/useHistory';
+import { useResponsive } from '@/composables/useResponsive';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import type { HashAlgorithm } from '@/types';
 
 const { t } = useI18n();
 const message = useMessage();
 const { result, error, calculating, progress, calculate } = useFileHash();
 const { recordUsage } = useHistory();
+const { isMobile } = useResponsive();
 
 const algorithm = ref<HashAlgorithm>('sha256');
 const fileList = ref<any[]>([]);
@@ -46,17 +48,19 @@ function handleCalculate() {
 }
 
 function handleUploadChange(data: { fileList: any[] }) {
-  fileList.value = data.fileList.slice(-1); // 只保留最新一个文件
+  fileList.value = data.fileList.slice(-1);
 }
 </script>
 
 <template>
   <div class="page-view">
-    <NCard :title="t('fileHash.title')">
-      <template #header-extra>
-        <ApiDocModal feature-id="file-hash" />
-      </template>
-      <NForm label-placement="left" label-width="auto">
+    <div class="page-header-row">
+      <PageHeader :title="t('fileHash.title')" :description="t('fileHash.description')" />
+      <ApiDocModal feature-id="file-hash" />
+    </div>
+
+    <NCard class="form-card">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
         <NFormItem :label="t('fileHash.algorithm')">
           <NSelect v-model:value="algorithm" :options="algorithmOptions" />
         </NFormItem>
@@ -74,11 +78,9 @@ function handleUploadChange(data: { fileList: any[] }) {
           <NProgress :percentage="progress" :indicator-placement="'inside'" processing />
         </NFormItem>
         <NFormItem>
-          <NSpace>
-            <NButton type="primary" :loading="calculating" @click="handleCalculate">
-              {{ calculating ? t('fileHash.calculating') : t('common.calculate') }}
-            </NButton>
-          </NSpace>
+          <NButton type="primary" :loading="calculating" :class="{ 'mobile-btn': isMobile }" @click="handleCalculate">
+            {{ calculating ? t('fileHash.calculating') : t('common.calculate') }}
+          </NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -91,5 +93,26 @@ function handleUploadChange(data: { fileList: any[] }) {
 .page-view {
   max-width: 700px;
   margin: 0 auto;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-header-row :deep(.page-header) {
+  margin-bottom: 0;
+}
+
+.form-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-btn {
+  width: 100%;
 }
 </style>

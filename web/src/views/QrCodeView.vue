@@ -8,14 +8,15 @@ import {
   NInput,
   NSelect,
   NButton,
-  NSpace,
   NImage,
   useMessage,
 } from 'naive-ui';
 import { useQrCode } from '@/composables/useQrCode';
 import { useHistory } from '@/composables/useHistory';
 import { useClipboard } from '@/utils/clipboard';
+import { useResponsive } from '@/composables/useResponsive';
 import ApiDocModal from '@/components/ApiDocModal.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import type { QrType, WifiEncryption } from '@/types';
 
 const { t } = useI18n();
@@ -23,6 +24,7 @@ const message = useMessage();
 const { result, error, generate } = useQrCode();
 const { recordUsage } = useHistory();
 const { copyToClipboard } = useClipboard();
+const { isMobile } = useResponsive();
 
 const qrType = ref<QrType>('text');
 const content = ref('');
@@ -80,11 +82,13 @@ async function handleGenerate() {
 
 <template>
   <div class="page-view">
-    <NCard :title="t('qr.title')">
-      <template #header-extra>
-        <ApiDocModal feature-id="qr" />
-      </template>
-      <NForm label-placement="left" label-width="auto">
+    <div class="page-header-row">
+      <PageHeader :title="t('qr.title')" :description="t('qr.description')" />
+      <ApiDocModal feature-id="qr" />
+    </div>
+
+    <NCard class="form-card">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
         <NFormItem :label="t('qr.type')">
           <NSelect v-model:value="qrType" :options="typeOptions" />
         </NFormItem>
@@ -120,25 +124,35 @@ async function handleGenerate() {
           </NFormItem>
         </template>
         <NFormItem>
-          <NSpace>
-            <NButton type="primary" @click="handleGenerate">{{ t('common.generate') }}</NButton>
-          </NSpace>
+          <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleGenerate">
+            {{ t('common.generate') }}
+          </NButton>
         </NFormItem>
       </NForm>
     </NCard>
 
-    <NCard v-if="result" :title="t('common.result')" size="small" style="margin-top: 16px;">
-      <template #header-extra>
-        <NButton text type="primary" @click="copyToClipboard(result)">{{ t('common.copy') }}</NButton>
-      </template>
-      <div class="qr-result">
-        <NImage
-          :src="`data:image/png;base64,${result}`"
-          alt="QR Code"
-          width="256"
-        />
-      </div>
-    </NCard>
+    <Transition name="result">
+      <NCard v-if="result" size="small" class="result-card">
+        <template #header>
+          <div class="result-label">
+            <span class="result-bar" />
+            <span>{{ t('common.result') }}</span>
+          </div>
+        </template>
+        <template #header-extra>
+          <NButton text type="primary" class="interactive" :aria-label="t('common.copy')" @click="copyToClipboard(result)">
+            {{ t('common.copy') }}
+          </NButton>
+        </template>
+        <div class="qr-result">
+          <NImage
+            :src="`data:image/png;base64,${result}`"
+            alt="QR Code"
+            width="256"
+          />
+        </div>
+      </NCard>
+    </Transition>
   </div>
 </template>
 
@@ -148,9 +162,50 @@ async function handleGenerate() {
   margin: 0 auto;
 }
 
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-header-row :deep(.page-header) {
+  margin-bottom: 0;
+}
+
+.form-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.result-card {
+  margin-top: var(--spacing-lg);
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+}
+
+.result-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.result-bar {
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: var(--color-cta);
+  flex-shrink: 0;
+}
+
 .qr-result {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: var(--spacing-md);
+}
+
+.mobile-btn {
+  width: 100%;
 }
 </style>

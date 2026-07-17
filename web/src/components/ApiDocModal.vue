@@ -325,7 +325,7 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
 </script>
 
 <template>
-  <NButton v-if="hasBackendUrl" quaternary @click="showModal = true">
+  <NButton v-if="hasBackendUrl" quaternary class="interactive" @click="showModal = true">
     <template #icon>
       <NIcon><DocumentTextOutline /></NIcon>
     </template>
@@ -335,7 +335,7 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
     v-model:show="showModal"
     preset="card"
     :title="t('common.apiDocTitle')"
-    style="max-width: 680px"
+    style="max-width: 720px"
   >
     <div v-if="currentDoc" class="api-doc-content">
       <h4 class="doc-section-title">{{ t('apiDoc.requestUrl') }}</h4>
@@ -347,7 +347,7 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
       </div>
 
       <h4 class="doc-section-title">{{ t('apiDoc.requestParams') }}</h4>
-      <NTable :bordered="true" :single-line="false" size="small">
+      <NTable :bordered="true" :single-line="false" size="small" class="param-table">
         <thead>
           <tr>
             <th>{{ t('apiDoc.paramName') }}</th>
@@ -369,7 +369,8 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
       <h4 class="doc-section-title">{{ t('apiDoc.responseResult') }}</h4>
       <div class="code-block">
         <button
-          class="copy-btn"
+          class="copy-btn interactive"
+          :aria-label="copiedResponse ? t('common.copied') : t('common.copy')"
           @click="handleCopy(currentDoc.response, 'response')"
         >
           <NIcon size="16">
@@ -383,7 +384,8 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
       <h4 class="doc-section-title">{{ t('apiDoc.requestExample') }}</h4>
       <div class="code-block">
         <button
-          class="copy-btn"
+          class="copy-btn interactive"
+          :aria-label="copiedCurl ? t('common.copied') : t('common.copy')"
           @click="handleCopy(currentDoc.curlExample, 'curl')"
         >
           <NIcon size="16">
@@ -401,27 +403,27 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
 .api-doc-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .doc-section-title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
   margin: 0;
   padding-left: 10px;
-  border-left: 3px solid #6366f1;
-  color: var(--n-text-color);
+  border-left: 3px solid var(--color-accent-bar);
+  color: var(--color-text-primary);
 }
 
 .code-block {
   position: relative;
-  border: 1px solid var(--n-border-color);
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   overflow: hidden;
+  background-color: var(--color-bg-elevated);
 }
 
 .code-block :deep(.n-code) pre {
-  /* padding: 12px 16px; */
   padding: 12px 16px;
   overflow-x: auto;
   scrollbar-gutter: stable;
@@ -438,9 +440,9 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
   width: 28px;
   height: 28px;
   border: none;
-  border-radius: 4px;
-  background: var(--n-color-embedded);
-  color: var(--n-text-color-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  color: var(--color-text-secondary);
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.2s ease, background 0.2s ease;
@@ -451,6 +453,11 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
 }
 
 .copy-btn:hover {
-  background: var(--n-color-hover);
+  background: var(--color-bg-elevated);
+}
+
+.param-table :deep(thead th) {
+  background-color: var(--color-bg-elevated);
+  font-weight: var(--font-weight-semibold);
 }
 </style>

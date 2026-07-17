@@ -8,19 +8,21 @@ import {
   NInput,
   NSelect,
   NButton,
-  NSpace,
   useMessage,
 } from 'naive-ui';
 import { useCodec } from '@/composables/useCodec';
 import { useHistory } from '@/composables/useHistory';
+import { useResponsive } from '@/composables/useResponsive';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import type { CodecFormat } from '@/types';
 
 const { t } = useI18n();
 const message = useMessage();
 const { result, error, convert } = useCodec();
 const { recordUsage } = useHistory();
+const { isMobile } = useResponsive();
 
 const from = ref<CodecFormat>('utf8');
 const to = ref<CodecFormat>('base64');
@@ -46,11 +48,13 @@ function handleConvert() {
 
 <template>
   <div class="page-view">
-    <NCard :title="t('codec.title')">
-      <template #header-extra>
-        <ApiDocModal feature-id="codec" />
-      </template>
-      <NForm label-placement="left" label-width="auto">
+    <div class="page-header-row">
+      <PageHeader :title="t('codec.title')" :description="t('codec.description')" />
+      <ApiDocModal feature-id="codec" />
+    </div>
+
+    <NCard class="form-card">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
         <NFormItem :label="t('codec.from')">
           <NSelect v-model:value="from" :options="formatOptions" />
         </NFormItem>
@@ -66,9 +70,9 @@ function handleConvert() {
           />
         </NFormItem>
         <NFormItem>
-          <NSpace>
-            <NButton type="primary" @click="handleConvert">{{ t('common.convert') }}</NButton>
-          </NSpace>
+          <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleConvert">
+            {{ t('common.convert') }}
+          </NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -81,5 +85,26 @@ function handleConvert() {
 .page-view {
   max-width: 700px;
   margin: 0 auto;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-header-row :deep(.page-header) {
+  margin-bottom: 0;
+}
+
+.form-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-btn {
+  width: 100%;
 }
 </style>

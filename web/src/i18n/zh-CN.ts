@@ -26,9 +26,17 @@ export default {
     recentUsage: '最近使用',
     frequentUsage: '最常使用',
     allTools: '全部工具',
+    qrDesc: '生成文本或 Wi-Fi 二维码',
+    uuidDesc: '生成 v4/v5 版本唯一标识符',
+    passwordDesc: '生成自定义随机密码',
+    hashDesc: '计算文本的 MD5/SHA-256 散列值',
+    codecDesc: 'Base64/Hex/URL 等格式互转',
+    fileHashDesc: '计算文件的 MD5/SHA-256 哈希值',
+    tokenDesc: '生成自定义前缀的随机令牌',
   },
   qr: {
     title: 'QR 码生成',
+    description: '生成文本或 Wi-Fi 二维码，支持一键复制和下载',
     type: '类型',
     text: '文本',
     wifi: 'Wi-Fi',
@@ -48,6 +56,7 @@ export default {
   },
   uuid: {
     title: 'UUID 生成',
+    description: '批量生成 v4 随机或 v5 命名空间 UUID',
     version: '版本',
     count: '数量',
     namespace: '命名空间',
@@ -61,6 +70,7 @@ export default {
   },
   password: {
     title: '随机密码生成',
+    description: '自定义长度和字符类别，生成安全随机密码',
     length: '密码长度',
     includeUpper: '包含大写字母',
     includeLower: '包含小写字母',
@@ -69,10 +79,11 @@ export default {
     customSymbols: '自定义符号',
     customSymbolsPlaceholder: '留空使用默认符号集合',
     atLeastOneCategory: '至少勾选一种字符类别',
-    lengthRange: '密码长度范围为 8-256',
+    lengthRange: '密码长度范围为 4-256',
   },
   hash: {
     title: '文本散列',
+    description: '支持 MD5 和 SHA-256 算法的文本散列计算',
     algorithm: '算法',
     text: '文本',
     textPlaceholder: '请输入待散列的文本',
@@ -81,6 +92,7 @@ export default {
   },
   codec: {
     title: '编码/解码转换',
+    description: 'Base64、Hex、UTF-8、Unicode、URL 格式互转',
     from: '源格式',
     to: '目标格式',
     text: '文本',
@@ -92,6 +104,7 @@ export default {
   },
   fileHash: {
     title: '文件哈希计算',
+    description: '上传文件计算 MD5 或 SHA-256 哈希值',
     algorithm: '算法',
     upload: '上传文件',
     fileSizeLimit: '文件大小不能超过 100 MB',
@@ -101,6 +114,7 @@ export default {
   },
   token: {
     title: 'Token 生成',
+    description: '生成自定义前缀和长度的随机令牌',
     prefix: '前缀',
     length: '长度',
     count: '数量',
@@ -138,7 +152,7 @@ export default {
       nameDesc: '名称（version 为 v5 时必填）',
     },
     password: {
-      lengthDesc: '密码长度，范围 8-256，默认 16',
+      lengthDesc: '密码长度，范围 4-256，默认 16',
       includeUpperDesc: '是否包含大写字母，默认 true',
       includeLowerDesc: '是否包含小写字母，默认 true',
       includeNumberDesc: '是否包含数字，默认 true',

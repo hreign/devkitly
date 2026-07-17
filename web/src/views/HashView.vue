@@ -8,19 +8,21 @@ import {
   NInput,
   NSelect,
   NButton,
-  NSpace,
   useMessage,
 } from 'naive-ui';
 import { useHash } from '@/composables/useHash';
 import { useHistory } from '@/composables/useHistory';
+import { useResponsive } from '@/composables/useResponsive';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import type { HashAlgorithm } from '@/types';
 
 const { t } = useI18n();
 const message = useMessage();
 const { result, error, calculate } = useHash();
 const { recordUsage } = useHistory();
+const { isMobile } = useResponsive();
 
 const algorithm = ref<HashAlgorithm>('sha256');
 const text = ref('');
@@ -42,11 +44,13 @@ function handleCalculate() {
 
 <template>
   <div class="page-view">
-    <NCard :title="t('hash.title')">
-      <template #header-extra>
-        <ApiDocModal feature-id="hash" />
-      </template>
-      <NForm label-placement="left" label-width="auto">
+    <div class="page-header-row">
+      <PageHeader :title="t('hash.title')" :description="t('hash.description')" />
+      <ApiDocModal feature-id="hash" />
+    </div>
+
+    <NCard class="form-card">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
         <NFormItem :label="t('hash.algorithm')">
           <NSelect v-model:value="algorithm" :options="algorithmOptions" />
         </NFormItem>
@@ -59,9 +63,9 @@ function handleCalculate() {
           />
         </NFormItem>
         <NFormItem>
-          <NSpace>
-            <NButton type="primary" @click="handleCalculate">{{ t('common.calculate') }}</NButton>
-          </NSpace>
+          <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleCalculate">
+            {{ t('common.calculate') }}
+          </NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -74,5 +78,26 @@ function handleCalculate() {
 .page-view {
   max-width: 700px;
   margin: 0 auto;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-header-row :deep(.page-header) {
+  margin-bottom: 0;
+}
+
+.form-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-btn {
+  width: 100%;
 }
 </style>

@@ -15,7 +15,7 @@ export function generatePassword(options: {
 }): string {
   const { length, includeUpper, includeLower, includeNumber, includeSymbol, customSymbols } = options;
 
-  if (length < 8 || length > 256) throw new Error('length 范围为 8-256');
+  if (length < 4 || length > 256) throw new Error('length 范围为 4-256');
   if (!includeUpper && !includeLower && !includeNumber && !includeSymbol) {
     throw new Error('至少选择一种字符类别');
   }

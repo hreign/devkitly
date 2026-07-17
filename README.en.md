@@ -1,6 +1,6 @@
 # DevKitly
 
-An online toolbox for developers — a web-based developer toolkit providing commonly used encoding, encryption, and generation tools. No installation required, just open and use.
+DevKitly is an “online toolkit for developers”—a web-based collection of developer tools that provides commonly used utilities such as QR code generation, UUID generation, random password generation, text hashing, encoding/decoding, file hashing, and token generation. The project uses a monorepo structure and is divided into two subprojects: web (frontend) and api (backend). Each implements its own functionality independently, and the frontend does not call the backend API.
 
 [中文](./README.md)
 
