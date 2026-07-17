@@ -14,6 +14,7 @@ import {
 import { useFileHash } from '@/composables/useFileHash';
 import { useHistory } from '@/composables/useHistory';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -23,9 +24,10 @@ const { t } = useI18n();
 const message = useMessage();
 const { result, error, calculating, progress, calculate } = useFileHash();
 const { recordUsage } = useHistory();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('fileHash.upload');
 
-const algorithm = ref<HashAlgorithm>('sha256');
+const algorithm = usePersistedRef<HashAlgorithm>('devkitly-file-hash-algorithm', 'sha256');
 const fileList = ref<any[]>([]);
 
 const algorithmOptions = [
@@ -60,7 +62,7 @@ function handleUploadChange(data: { fileList: any[] }) {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('fileHash.algorithm')">
           <NSelect v-model:value="algorithm" :options="algorithmOptions" />
         </NFormItem>
@@ -77,7 +79,7 @@ function handleUploadChange(data: { fileList: any[] }) {
         <NFormItem v-if="calculating">
           <NProgress :percentage="progress" :indicator-placement="'inside'" processing />
         </NFormItem>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :loading="calculating" :class="{ 'mobile-btn': isMobile }" @click="handleCalculate">
             {{ calculating ? t('fileHash.calculating') : t('common.calculate') }}
           </NButton>

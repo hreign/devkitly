@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NCard,
@@ -13,6 +12,7 @@ import {
 import { useHash } from '@/composables/useHash';
 import { useHistory } from '@/composables/useHistory';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -22,10 +22,11 @@ const { t } = useI18n();
 const message = useMessage();
 const { result, error, calculate } = useHash();
 const { recordUsage } = useHistory();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('hash.algorithm');
 
-const algorithm = ref<HashAlgorithm>('sha256');
-const text = ref('');
+const algorithm = usePersistedRef<HashAlgorithm>('devkitly-hash-algorithm', 'sha256');
+const text = usePersistedRef<string>('devkitly-hash-text', '');
 
 const algorithmOptions = [
   { label: 'MD5', value: 'md5' },
@@ -50,7 +51,7 @@ function handleCalculate() {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('hash.algorithm')">
           <NSelect v-model:value="algorithm" :options="algorithmOptions" />
         </NFormItem>
@@ -62,7 +63,7 @@ function handleCalculate() {
             :autosize="{ minRows: 3, maxRows: 10 }"
           />
         </NFormItem>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleCalculate">
             {{ t('common.calculate') }}
           </NButton>

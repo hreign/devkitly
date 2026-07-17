@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NCard,
@@ -13,6 +12,7 @@ import {
 import { useCodec } from '@/composables/useCodec';
 import { useHistory } from '@/composables/useHistory';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -22,11 +22,12 @@ const { t } = useI18n();
 const message = useMessage();
 const { result, error, convert } = useCodec();
 const { recordUsage } = useHistory();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('codec.to');
 
-const from = ref<CodecFormat>('utf8');
-const to = ref<CodecFormat>('base64');
-const text = ref('');
+const from = usePersistedRef<CodecFormat>('devkitly-codec-from', 'utf8');
+const to = usePersistedRef<CodecFormat>('devkitly-codec-to', 'base64');
+const text = usePersistedRef<string>('devkitly-codec-text', '');
 
 const formatOptions = [
   { label: 'Base64', value: 'base64' },
@@ -54,7 +55,7 @@ function handleConvert() {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('codec.from')">
           <NSelect v-model:value="from" :options="formatOptions" />
         </NFormItem>
@@ -69,7 +70,7 @@ function handleConvert() {
             :autosize="{ minRows: 3, maxRows: 10 }"
           />
         </NFormItem>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleConvert">
             {{ t('common.convert') }}
           </NButton>

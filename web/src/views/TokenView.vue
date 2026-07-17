@@ -16,6 +16,7 @@ import { useToken } from '@/composables/useToken';
 import { useHistory } from '@/composables/useHistory';
 import { useClipboard } from '@/utils/clipboard';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
 
@@ -24,11 +25,12 @@ const message = useMessage();
 const { result, error, generate } = useToken();
 const { recordUsage } = useHistory();
 const { copyToClipboard } = useClipboard();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('token.prefix');
 
-const prefix = ref('');
-const length = ref(32);
-const count = ref(1);
+const prefix = usePersistedRef<string>('devkitly-token-prefix', '');
+const length = usePersistedRef<number>('devkitly-token-length', 32);
+const count = usePersistedRef<number>('devkitly-token-count', 1);
 
 const copiedIndex = ref<number | null>(null);
 
@@ -66,7 +68,7 @@ async function copyItem(token: string, index: number) {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('token.prefix')">
           <NInput v-model:value="prefix" :placeholder="t('token.prefixPlaceholder')" :maxlength="16" />
         </NFormItem>
@@ -76,7 +78,7 @@ async function copyItem(token: string, index: number) {
         <NFormItem :label="t('token.count')">
           <NInputNumber v-model:value="count" :min="1" :max="100" style="width: 100%;" />
         </NFormItem>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleGenerate">
             {{ t('common.generate') }}
           </NButton>

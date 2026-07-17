@@ -164,7 +164,7 @@ const gridCols = computed(() => (isMobile.value ? 1 : 2));
   font-weight: var(--font-weight-extrabold);
   letter-spacing: -1px;
   margin: 0 0 var(--spacing-sm) 0;
-  color: var(--color-text-primary);
+  color: var(--color-cta);
 }
 
 .home-subtitle {

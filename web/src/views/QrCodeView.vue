@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NCard,
@@ -15,6 +14,7 @@ import { useQrCode } from '@/composables/useQrCode';
 import { useHistory } from '@/composables/useHistory';
 import { useClipboard } from '@/utils/clipboard';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import type { QrType, WifiEncryption } from '@/types';
@@ -24,13 +24,14 @@ const message = useMessage();
 const { result, error, generate } = useQrCode();
 const { recordUsage } = useHistory();
 const { copyToClipboard } = useClipboard();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('qr.encryption');
 
-const qrType = ref<QrType>('text');
-const content = ref('');
-const ssid = ref('');
-const wifiPassword = ref('');
-const encryption = ref<WifiEncryption | null>(null);
+const qrType = usePersistedRef<QrType>('devkitly-qr-type', 'text');
+const content = usePersistedRef<string>('devkitly-qr-content', '');
+const ssid = usePersistedRef<string>('devkitly-qr-ssid', '');
+const wifiPassword = usePersistedRef<string>('devkitly-qr-wifi-password', '');
+const encryption = usePersistedRef<WifiEncryption | null>('devkitly-qr-encryption', null);
 
 const typeOptions = [
   { label: () => t('qr.text'), value: 'text' },
@@ -88,7 +89,7 @@ async function handleGenerate() {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('qr.type')">
           <NSelect v-model:value="qrType" :options="typeOptions" />
         </NFormItem>
@@ -123,7 +124,7 @@ async function handleGenerate() {
             />
           </NFormItem>
         </template>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleGenerate">
             {{ t('common.generate') }}
           </NButton>

@@ -17,6 +17,7 @@ import { useUuid } from '@/composables/useUuid';
 import { useHistory } from '@/composables/useHistory';
 import { useClipboard } from '@/utils/clipboard';
 import { useResponsive } from '@/composables/useResponsive';
+import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import type { UuidVersion } from '@/types';
@@ -26,12 +27,13 @@ const message = useMessage();
 const { result, error, generate } = useUuid();
 const { recordUsage } = useHistory();
 const { copyToClipboard } = useClipboard();
-const { isMobile } = useResponsive();
+const { isMobile, formLabelWidth } = useResponsive();
+const labelWidth = formLabelWidth('uuid.namespace');
 
-const version = ref<UuidVersion>('v4');
-const count = ref(1);
-const namespace = ref('');
-const name = ref('');
+const version = usePersistedRef<UuidVersion>('devkitly-uuid-version', 'v4');
+const count = usePersistedRef<number>('devkitly-uuid-count', 1);
+const namespace = usePersistedRef<string>('devkitly-uuid-namespace', '');
+const name = usePersistedRef<string>('devkitly-uuid-name', '');
 
 const copiedIndex = ref<number | null>(null);
 
@@ -70,7 +72,7 @@ async function copyItem(uuid: string, index: number) {
     </div>
 
     <NCard class="form-card">
-      <NForm :label-placement="isMobile ? 'top' : 'left'" label-width="auto">
+      <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('uuid.version')">
           <NSelect v-model:value="version" :options="versionOptions" />
         </NFormItem>
@@ -85,7 +87,7 @@ async function copyItem(uuid: string, index: number) {
         <NFormItem :label="t('uuid.count')">
           <NInputNumber v-model:value="count" :min="1" :max="100" style="width: 100%;" />
         </NFormItem>
-        <NFormItem>
+        <NFormItem label=" ">
           <NButton type="primary" :class="{ 'mobile-btn': isMobile }" @click="handleGenerate">
             {{ t('common.generate') }}
           </NButton>
