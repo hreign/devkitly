@@ -51,15 +51,32 @@ interface ApiParam {
 interface ApiDoc {
   path: string;
   method: string;
+  headers: ApiParam[];
   params: ApiParam[];
   response: string;
   curlExample: string;
 }
 
+const commonHeaders: ApiParam[] = [
+  {
+    name: 'x-api-password',
+    type: 'string',
+    required: false,
+    description: t('apiDoc.xApiPasswordDesc'),
+  },
+  {
+    name: 'x-api-lang',
+    type: 'string',
+    required: false,
+    description: t('apiDoc.xApiLangDesc'),
+  },
+];
+
 const apiDocs: Record<FeatureId, ApiDoc> = {
   qr: {
-    path: '/api/qr',
+    path: '/qr',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'type',
@@ -99,13 +116,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "image": "base64 PNG"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/qr \\
+    curlExample: `curl -X POST ${baseUrl.value}/qr \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"type":"text","content":"Hello World"}'`,
   },
   uuid: {
-    path: '/api/uuid',
+    path: '/uuid',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'version',
@@ -139,13 +158,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "uuids": ["string"]
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/uuid \\
+    curlExample: `curl -X POST ${baseUrl.value}/uuid \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"version":"v4","count":5}'`,
   },
   password: {
-    path: '/api/password',
+    path: '/password',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'length',
@@ -191,13 +212,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "password": "string"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/password \\
+    curlExample: `curl -X POST ${baseUrl.value}/password \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"length":16,"includeUpper":true,"includeLower":true,"includeNumber":true,"includeSymbol":true}'`,
   },
   hash: {
-    path: '/api/hash',
+    path: '/hash',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'algorithm',
@@ -219,13 +242,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "hash": "string"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/hash \\
+    curlExample: `curl -X POST ${baseUrl.value}/hash \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"algorithm":"sha256","text":"Hello World"}'`,
   },
   codec: {
-    path: '/api/codec',
+    path: '/codec',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'from',
@@ -253,13 +278,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "result": "string"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/codec \\
+    curlExample: `curl -X POST ${baseUrl.value}/codec \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"from":"utf8","to":"base64","text":"Hello World"}'`,
   },
   'file-hash': {
-    path: '/api/file-hash',
+    path: '/file-hash',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'file',
@@ -281,13 +308,15 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "hash": "string"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/file-hash \\
+    curlExample: `curl -X POST ${baseUrl.value}/file-hash \\
+  -H "x-api-lang: zh-cn" \\
   -F "file=@/path/to/file" \\
   -F "algorithm=sha256"`,
   },
   token: {
-    path: '/api/token',
+    path: '/token',
     method: 'POST',
+    headers: commonHeaders,
     params: [
       {
         name: 'prefix',
@@ -315,8 +344,9 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "tokens": ["string"]
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/api/token \\
+    curlExample: `curl -X POST ${baseUrl.value}/token \\
   -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
   -d '{"prefix":"tk_","length":32,"count":3}'`,
   },
 };
@@ -345,6 +375,26 @@ const currentDoc = computed(() => apiDocs[props.featureId]);
           language="text"
         />
       </div>
+
+      <h4 class="doc-section-title">{{ t('apiDoc.requestHeaders') }}</h4>
+      <NTable :bordered="true" :single-line="false" size="small" class="param-table">
+        <thead>
+          <tr>
+            <th>{{ t('apiDoc.paramName') }}</th>
+            <th>{{ t('apiDoc.paramType') }}</th>
+            <th>{{ t('apiDoc.paramRequired') }}</th>
+            <th>{{ t('apiDoc.paramDesc') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="header in currentDoc.headers" :key="header.name">
+            <td><NCode :code="header.name" language="text" inline /></td>
+            <td>{{ header.type }}</td>
+            <td>{{ header.required ? t('apiDoc.yes') : t('apiDoc.no') }}</td>
+            <td>{{ header.description }}</td>
+          </tr>
+        </tbody>
+      </NTable>
 
       <h4 class="doc-section-title">{{ t('apiDoc.requestParams') }}</h4>
       <NTable :bordered="true" :single-line="false" size="small" class="param-table">

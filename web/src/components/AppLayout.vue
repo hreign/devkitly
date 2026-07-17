@@ -88,8 +88,8 @@ function handleMenuUpdate(key: string) {
 }
 
 const localeOptions = computed(() => [
-  { label: '中文', key: 'zh-CN' },
-  { label: 'English', key: 'en-US' },
+  { label: '中文', key: 'zh-cn' },
+  { label: 'English', key: 'en-us' },
 ]);
 
 function handleLocaleSelect(key: string) {

@@ -10,9 +10,9 @@ router.post('/', (req, res) => {
     const { prefix, length, count } = req.body;
 
     const tokens = generateTokens({ prefix, length, count });
-    res.json(success({ tokens }));
+    res.json(success({ tokens }, req.lang));
   } catch (e: any) {
-    res.json(error(ErrorCodes.PARAM_ERROR, e.message || '参数错误'));
+    res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
   }
 });
 

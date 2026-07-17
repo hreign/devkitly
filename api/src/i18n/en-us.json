@@ -1,0 +1,17 @@
+{
+  "success": "Success",
+  "paramError": "Parameter error",
+  "unsupportedType": "Unsupported type",
+  "unsupportedSourceFormat": "Unsupported source format",
+  "unsupportedTargetFormat": "Unsupported target format",
+  "unsupportedAlgorithm": "Unsupported algorithm",
+  "missingFile": "Missing file",
+  "fileIoError": "File I/O error",
+  "unauthorized": "Unauthorized/Incorrect password",
+  "serverError": "Internal server error",
+  "missingContent": "Missing content parameter",
+  "contentTooLong": "Content cannot exceed 256 characters",
+  "missingSsid": "Missing ssid parameter",
+  "missingPassword": "Missing password parameter",
+  "missingEncryption": "Missing encryption parameter"
+}

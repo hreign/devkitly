@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import serverless from 'serverless-http';
+import { i18nMiddleware } from './middlewares/i18n.js';
 import { authMiddleware } from './middlewares/auth.js';
 import { errorHandler } from './middlewares/error-handler.js';
 import qrRouter from './routes/qr.js';
@@ -16,17 +17,20 @@ const app = express();
 // 中间件
 app.use(express.json());
 
+// 国际化（需在鉴权之前，确保鉴权错误消息也支持国际化）
+app.use(i18nMiddleware);
+
 // 鉴权
-app.use('/api', authMiddleware);
+app.use(authMiddleware);
 
 // 路由
-app.use('/api/qr', qrRouter);
-app.use('/api/uuid', uuidRouter);
-app.use('/api/password', passwordRouter);
-app.use('/api/hash', hashRouter);
-app.use('/api/codec', codecRouter);
-app.use('/api/file-hash', fileHashRouter);
-app.use('/api/token', tokenRouter);
+app.use('/qr', qrRouter);
+app.use('/uuid', uuidRouter);
+app.use('/password', passwordRouter);
+app.use('/hash', hashRouter);
+app.use('/codec', codecRouter);
+app.use('/file-hash', fileHashRouter);
+app.use('/token', tokenRouter);
 
 // 错误处理
 app.use(errorHandler);

@@ -1,0 +1,17 @@
+{
+  "success": "成功",
+  "paramError": "参数错误",
+  "unsupportedType": "不支持的类型",
+  "unsupportedSourceFormat": "不支持的源格式",
+  "unsupportedTargetFormat": "不支持的目标格式",
+  "unsupportedAlgorithm": "不支持的算法",
+  "missingFile": "缺少文件",
+  "fileIoError": "文件读写异常",
+  "unauthorized": "未授权/密码错误",
+  "serverError": "服务端内部错误",
+  "missingContent": "缺少 content 参数",
+  "contentTooLong": "content 不能超过 256 字符",
+  "missingSsid": "缺少 ssid 参数",
+  "missingPassword": "缺少 password 参数",
+  "missingEncryption": "缺少 encryption 参数"
+}

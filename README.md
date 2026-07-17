@@ -71,6 +71,25 @@ pnpm build:api
 | `PORT` | api | 服务端口，默认 3000 | `3000` |
 | `VITE_BACKEND_URL` | web | 后端服务地址，设置后各功能页将显示 API 文档按钮 | `https://api.example.com` |
 
+## 语言包扩展
+
+项目前后端均支持国际化，新增语言只需添加对应的 JSON 文件即可，无需修改任何代码。
+
+### 后端（API）
+
+1. 在 `api/src/i18n/` 目录下新建 JSON 文件，文件名即语言代码（如 `fr-fr.json`、`ja-jp.json`）
+2. 文件内容为消息键值对，可参考 `zh-cn.json` 中的键名
+3. 启动或构建时自动加载，无需其他操作
+
+请求头 `x-api-lang` 携带语言代码（如 `fr-fr`），未携带时默认 `zh-cn`。
+
+### 前端（Web）
+
+1. 在 `web/src/i18n/` 目录下新建 JSON 文件，文件名即语言代码（如 `fr-fr.json`、`ja-jp.json`）
+2. 文件内容为嵌套的键值对，结构与 `zh-cn.json` 完全对齐
+3. 构建时自动加载，无需其他操作
+4. 如需在语言切换菜单中展示新语言，修改 `web/src/components/AppLayout.vue` 中的 `localeOptions`
+
 ## 许可证
 
 [MIT](./LICENSE)

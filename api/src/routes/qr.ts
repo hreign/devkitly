@@ -10,14 +10,14 @@ router.post('/', async (req, res) => {
     const { type, content, ssid, password, encryption } = req.body;
 
     if (!type || (type !== 'text' && type !== 'wifi')) {
-      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, '不支持的类型'));
+      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, 'unsupportedType', req.lang));
       return;
     }
 
     const image = await generateQrCode(type, { content, ssid, password, encryption });
-    res.json(success({ image }));
+    res.json(success({ image }, req.lang));
   } catch (e: any) {
-    res.json(error(ErrorCodes.PARAM_ERROR, e.message || '参数错误'));
+    res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
   }
 });
 

@@ -13,12 +13,12 @@ router.post('/', upload.single('file'), async (req, res) => {
     const algorithm = req.body.algorithm;
 
     if (!file) {
-      res.json(error(ErrorCodes.PARAM_ERROR, '缺少文件'));
+      res.json(error(ErrorCodes.PARAM_ERROR, 'missingFile', req.lang));
       return;
     }
 
     if (!algorithm || (algorithm !== 'md5' && algorithm !== 'sha256')) {
-      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, '不支持的算法'));
+      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, 'unsupportedAlgorithm', req.lang));
       return;
     }
 
@@ -27,12 +27,12 @@ router.post('/', upload.single('file'), async (req, res) => {
     const stream = Readable.from(file.buffer);
 
     const hash = await calculateFileHash(stream, file.size, algorithm);
-    res.json(success({ hash }));
+    res.json(success({ hash }, req.lang));
   } catch (e: any) {
     if (e.message?.includes('文件大小')) {
-      res.json(error(ErrorCodes.PARAM_ERROR, e.message));
+      res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
     } else {
-      res.json(error(ErrorCodes.FILE_IO_ERROR, '文件读写异常'));
+      res.json(error(ErrorCodes.FILE_IO_ERROR, 'fileIoError', req.lang));
     }
   }
 });

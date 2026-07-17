@@ -17,9 +17,9 @@ router.post('/', (req, res) => {
       includeSymbol,
       customSymbols,
     });
-    res.json(success({ password }));
+    res.json(success({ password }, req.lang));
   } catch (e: any) {
-    res.json(error(ErrorCodes.PARAM_ERROR, e.message || '参数错误'));
+    res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
   }
 });
 

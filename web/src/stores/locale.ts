@@ -4,7 +4,7 @@ import { ref } from 'vue';
 export const useLocaleStore = defineStore('locale', () => {
   const locale = ref<string>(
     localStorage.getItem('devkitly-locale') ||
-      (navigator.language.startsWith('zh') ? 'zh-CN' : 'en-US'),
+      (navigator.language.toLowerCase().startsWith('zh') ? 'zh-cn' : 'en-us'),
   );
 
   function setLocale(newLocale: string) {

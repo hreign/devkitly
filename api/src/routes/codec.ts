@@ -12,18 +12,18 @@ router.post('/', (req, res) => {
     const { from, to, text } = req.body;
 
     if (!from || !VALID_FORMATS.includes(from)) {
-      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, '不支持的源格式'));
+      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, 'unsupportedSourceFormat', req.lang));
       return;
     }
     if (!to || !VALID_FORMATS.includes(to)) {
-      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, '不支持的目标格式'));
+      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, 'unsupportedTargetFormat', req.lang));
       return;
     }
 
     const result = convertCodec(from, to, text);
-    res.json(success({ result }));
+    res.json(success({ result }, req.lang));
   } catch (e: any) {
-    res.json(error(ErrorCodes.PARAM_ERROR, e.message || '参数错误'));
+    res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
   }
 });
 

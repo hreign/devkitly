@@ -26,3 +26,12 @@ export const ErrorCodes = {
   FILE_IO_ERROR: 2000,
   UNAUTHORIZED: 4001,
 } as const;
+
+// 扩展 Express Request 类型
+declare global {
+  namespace Express {
+    interface Request {
+      lang?: string;
+    }
+  }
+}

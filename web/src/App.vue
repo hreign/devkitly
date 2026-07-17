@@ -27,10 +27,10 @@ const themeStore = useThemeStore();
 const localeStore = useLocaleStore();
 
 const naiveLocale = computed(() =>
-  localeStore.locale === 'zh-CN' ? zhCN : enUS,
+  localeStore.locale === 'zh-cn' ? zhCN : enUS,
 );
 const naiveDateLocale = computed(() =>
-  localeStore.locale === 'zh-CN' ? dateZhCN : dateEnUS,
+  localeStore.locale === 'zh-cn' ? dateZhCN : dateEnUS,
 );
 
 // 动态引入 highlight.js 主题

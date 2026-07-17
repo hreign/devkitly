@@ -11,7 +11,7 @@
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/dist/index.js" },
+    { "src": "/(qr|uuid|password|hash|codec|file-hash|token)", "dest": "/api/dist/index.js" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/web/dist/$1" }
   ]

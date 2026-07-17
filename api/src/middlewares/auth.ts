@@ -14,7 +14,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
   const apiPassword = req.headers['x-api-password'];
 
   if (!apiPassword || apiPassword !== password) {
-    res.json(error(ErrorCodes.UNAUTHORIZED, '未授权/密码错误'));
+    res.json(error(ErrorCodes.UNAUTHORIZED, 'unauthorized', req.lang));
     return;
   }
 

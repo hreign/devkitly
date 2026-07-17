@@ -10,14 +10,14 @@ router.post('/', (req, res) => {
     const { algorithm, text } = req.body;
 
     if (!algorithm || (algorithm !== 'md5' && algorithm !== 'sha256')) {
-      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, '不支持的类型'));
+      res.json(error(ErrorCodes.UNSUPPORTED_TYPE, 'unsupportedType', req.lang));
       return;
     }
 
     const hash = calculateHash(algorithm, text);
-    res.json(success({ hash }));
+    res.json(success({ hash }, req.lang));
   } catch (e: any) {
-    res.json(error(ErrorCodes.PARAM_ERROR, e.message || '参数错误'));
+    res.json(error(ErrorCodes.PARAM_ERROR, 'paramError', req.lang));
   }
 });
 

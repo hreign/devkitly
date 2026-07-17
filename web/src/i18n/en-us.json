@@ -1,0 +1,184 @@
+{
+  "common": {
+    "generate": "Generate",
+    "calculate": "Calculate",
+    "convert": "Convert",
+    "copy": "Copy",
+    "copied": "Copied",
+    "result": "Result",
+    "apiDoc": "API Doc",
+    "apiDocTitle": "API Documentation",
+    "selectPlaceholder": "Please select"
+  },
+  "nav": {
+    "home": "Home",
+    "qr": "QR Code",
+    "uuid": "UUID",
+    "password": "Password",
+    "hash": "Text Hash",
+    "codec": "Codec",
+    "fileHash": "File Hash",
+    "token": "Token"
+  },
+  "home": {
+    "title": "DevKitly",
+    "subtitle": "Developer's Online Toolkit",
+    "recentUsage": "Recently Used",
+    "frequentUsage": "Most Used",
+    "allTools": "All Tools",
+    "qrDesc": "Generate text or Wi-Fi QR codes",
+    "uuidDesc": "Generate v4/v5 unique identifiers",
+    "passwordDesc": "Generate custom random passwords",
+    "hashDesc": "Calculate MD5/SHA-256 text hashes",
+    "codecDesc": "Convert between Base64/Hex/URL formats",
+    "fileHashDesc": "Calculate file MD5/SHA-256 hashes",
+    "tokenDesc": "Generate custom prefix random tokens"
+  },
+  "qr": {
+    "title": "QR Code Generator",
+    "description": "Generate text or Wi-Fi QR codes with one-click copy and download",
+    "type": "Type",
+    "text": "Text",
+    "wifi": "Wi-Fi",
+    "content": "Content",
+    "ssid": "Network Name",
+    "wifiPassword": "Password",
+    "encryption": "Encryption",
+    "contentPlaceholder": "Enter text to encode (max 256 characters)",
+    "ssidPlaceholder": "Enter Wi-Fi network name",
+    "wifiPasswordPlaceholder": "Enter Wi-Fi password",
+    "contentRequired": "Please enter text content",
+    "contentTooLong": "Text content cannot exceed 256 characters",
+    "ssidRequired": "Please enter network name",
+    "wifiPasswordRequired": "Please enter Wi-Fi password",
+    "encryptionRequired": "Please select encryption type",
+    "unknown": "An unknown error occurred while generating QR code"
+  },
+  "uuid": {
+    "title": "UUID Generator",
+    "description": "Batch generate v4 random or v5 namespace UUIDs",
+    "version": "Version",
+    "count": "Count",
+    "namespace": "Namespace",
+    "name": "Name",
+    "namespacePlaceholder": "Enter namespace",
+    "namePlaceholder": "Enter name",
+    "namespaceRequired": "Please enter namespace",
+    "nameRequired": "Please enter name",
+    "countRange": "Count must be between 1 and 100",
+    "unknown": "An unknown error occurred while generating UUID"
+  },
+  "password": {
+    "title": "Password Generator",
+    "description": "Generate secure random passwords with custom length and character types",
+    "length": "Password Length",
+    "includeUpper": "Include Uppercase",
+    "includeLower": "Include Lowercase",
+    "includeNumber": "Include Numbers",
+    "includeSymbol": "Include Symbols",
+    "customSymbols": "Custom Symbols",
+    "customSymbolsPlaceholder": "Leave empty to use default symbol set",
+    "atLeastOneCategory": "At least one character category must be selected",
+    "lengthRange": "Password length must be between 4 and 256"
+  },
+  "hash": {
+    "title": "Text Hash",
+    "description": "Calculate text hashes using MD5 and SHA-256 algorithms",
+    "algorithm": "Algorithm",
+    "text": "Text",
+    "textPlaceholder": "Enter text to hash",
+    "textRequired": "Please enter text to hash",
+    "unknown": "An unknown error occurred while calculating hash"
+  },
+  "codec": {
+    "title": "Encode/Decode",
+    "description": "Convert between Base64, Hex, UTF-8, Unicode, and URL formats",
+    "from": "Source Format",
+    "to": "Target Format",
+    "text": "Text",
+    "textPlaceholder": "Enter text to convert",
+    "textRequired": "Please enter text to convert",
+    "sameFormat": "Source and target formats cannot be the same",
+    "invalidInput": "Input text does not match source format",
+    "unknown": "An unknown error occurred while converting"
+  },
+  "fileHash": {
+    "title": "File Hash",
+    "description": "Upload files to calculate MD5 or SHA-256 hash values",
+    "algorithm": "Algorithm",
+    "upload": "Upload File",
+    "fileSizeLimit": "File size cannot exceed 100 MB",
+    "fileRequired": "Please upload a file",
+    "calculating": "Calculating...",
+    "unknown": "An unknown error occurred while calculating file hash"
+  },
+  "token": {
+    "title": "Token Generator",
+    "description": "Generate random tokens with custom prefix and length",
+    "prefix": "Prefix",
+    "length": "Length",
+    "count": "Count",
+    "prefixPlaceholder": "Optional, max 16 characters",
+    "prefixTooLong": "Prefix cannot exceed 16 characters",
+    "lengthRange": "Length must be between 1 and 256",
+    "countRange": "Count must be between 1 and 100"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "apiDoc": {
+    "requestUrl": "Request URL",
+    "requestHeaders": "Request Headers",
+    "requestParams": "Request Parameters",
+    "paramName": "Name",
+    "paramType": "Type",
+    "paramRequired": "Required",
+    "paramDesc": "Description",
+    "responseResult": "Response",
+    "requestExample": "Request Example",
+    "yes": "Yes",
+    "no": "No",
+    "xApiPasswordDesc": "Auth password, required when server PASSWORD env is set",
+    "xApiLangDesc": "Response language, zh-cn (default) / en-us",
+    "qr": {
+      "typeDesc": "QR code type, \"text\" or \"wifi\"",
+      "contentDesc": "Text content (required when type is text, max 256 characters)",
+      "ssidDesc": "Wi-Fi network name (required when type is wifi)",
+      "passwordDesc": "Wi-Fi password (required when type is wifi)",
+      "encryptionDesc": "Encryption type, \"WPA\", \"WEP\", or \"nopass\" (required when type is wifi)"
+    },
+    "uuid": {
+      "versionDesc": "UUID version, \"v4\" or \"v5\"",
+      "countDesc": "Number of UUIDs to generate, range 1-100, default 1",
+      "namespaceDesc": "Namespace (required when version is v5)",
+      "nameDesc": "Name (required when version is v5)"
+    },
+    "password": {
+      "lengthDesc": "Password length, range 4-256, default 16",
+      "includeUpperDesc": "Include uppercase letters, default true",
+      "includeLowerDesc": "Include lowercase letters, default true",
+      "includeNumberDesc": "Include numbers, default true",
+      "includeSymbolDesc": "Include symbols, default true",
+      "customSymbolsDesc": "Custom symbol set, leave empty for default"
+    },
+    "hash": {
+      "algorithmDesc": "Hash algorithm, \"md5\" or \"sha256\"",
+      "textDesc": "Text content to hash"
+    },
+    "codec": {
+      "fromDesc": "Source format, \"base64\", \"hex\", \"utf8\", \"unicode\", or \"url\"",
+      "toDesc": "Target format, \"base64\", \"hex\", \"utf8\", \"unicode\", or \"url\"",
+      "textDesc": "Text content to convert"
+    },
+    "fileHash": {
+      "fileDesc": "File to upload (multipart/form-data), max 100MB",
+      "algorithmDesc": "Hash algorithm, \"md5\" or \"sha256\""
+    },
+    "token": {
+      "prefixDesc": "Token prefix, optional, max 16 characters",
+      "lengthDesc": "Token length, range 1-256, default 32",
+      "countDesc": "Number of tokens to generate, range 1-100, default 1"
+    }
+  }
+}

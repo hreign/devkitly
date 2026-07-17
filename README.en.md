@@ -71,6 +71,25 @@ Click the button above to quickly deploy the project to Vercel. The project uses
 | `PORT` | api | Server port, default 3000 | `3000` |
 | `VITE_BACKEND_URL` | web | Backend service URL, when set, API doc buttons will appear on feature pages | `https://api.example.com` |
 
+## Adding Language Packs
+
+Both the frontend and backend support internationalization. To add a new language, simply create the corresponding JSON file—no code changes required.
+
+### Backend (API)
+
+1. Create a new JSON file in the `api/src/i18n/` directory. The filename is the language code (e.g., `fr-fr.json`, `ja-jp.json`)
+2. The file content is a flat key-value map of message keys. Refer to `zh-cn.json` for the full list of keys
+3. The file is automatically loaded on startup or build—no further action needed
+
+Use the `x-api-lang` request header to specify the language code (e.g., `fr-fr`). Defaults to `zh-cn` if not provided.
+
+### Frontend (Web)
+
+1. Create a new JSON file in the `web/src/i18n/` directory. The filename is the language code (e.g., `fr-fr.json`, `ja-jp.json`)
+2. The file content is a nested key-value map with the same structure as `zh-cn.json`
+3. The file is automatically loaded at build time—no further action needed
+4. To display the new language in the language switcher menu, update `localeOptions` in `web/src/components/AppLayout.vue`
+
 ## License
 
 [MIT](./LICENSE)
