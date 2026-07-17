@@ -5,7 +5,7 @@ import { success, error } from '../utils/response.js';
 import { ErrorCodes } from '../types/index.js';
 
 const upload = multer({ storage: multer.memoryStorage() });
-const router = Router();
+const router: Router = Router();
 
 router.post('/', upload.single('file'), async (req, res) => {
   try {

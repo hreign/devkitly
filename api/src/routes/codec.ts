@@ -5,7 +5,7 @@ import { ErrorCodes } from '../types/index.js';
 
 const VALID_FORMATS = ['base64', 'hex', 'utf8', 'unicode', 'url'];
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', (req, res) => {
   try {

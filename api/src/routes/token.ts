@@ -3,7 +3,7 @@ import { generateTokens } from '../services/token.js';
 import { success, error } from '../utils/response.js';
 import { ErrorCodes } from '../types/index.js';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', (req, res) => {
   try {

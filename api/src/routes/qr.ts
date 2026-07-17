@@ -3,7 +3,7 @@ import { generateQrCode } from '../services/qr.js';
 import { success, error } from '../utils/response.js';
 import { ErrorCodes } from '../types/index.js';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', async (req, res) => {
   try {
