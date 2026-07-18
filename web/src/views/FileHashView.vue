@@ -5,7 +5,6 @@ import {
   NCard,
   NForm,
   NFormItem,
-  NSelect,
   NButton,
   NUpload,
   NProgress,
@@ -18,6 +17,7 @@ import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import TabRadioGroup from '@/components/TabRadioGroup.vue';
 import type { HashAlgorithm } from '@/types';
 
 const { t } = useI18n();
@@ -45,7 +45,7 @@ function handleCalculate() {
   if (error.value) {
     message.warning(t(`fileHash.${error.value}`));
   } else if (result.value) {
-    recordUsage('file-hash');
+    recordUsage('digest');
   }
 }
 
@@ -58,13 +58,13 @@ function handleUploadChange(data: { fileList: any[] }) {
   <div class="page-view">
     <div class="page-header-row">
       <PageHeader :title="t('fileHash.title')" :description="t('fileHash.description')" />
-      <ApiDocModal feature-id="file-hash" />
+      <ApiDocModal feature-id="digest" />
     </div>
 
     <NCard class="form-card">
       <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('fileHash.algorithm')">
-          <NSelect v-model:value="algorithm" :options="algorithmOptions" />
+          <TabRadioGroup v-model="algorithm" :options="algorithmOptions" :aria-label="t('fileHash.algorithm')" />
         </NFormItem>
         <NFormItem :label="t('fileHash.upload')">
           <NUpload

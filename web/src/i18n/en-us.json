@@ -15,10 +15,10 @@
     "qr": "QR Code",
     "uuid": "UUID",
     "password": "Password",
-    "hash": "Text Hash",
+    "digest": "Digest",
     "codec": "Codec",
-    "fileHash": "File Hash",
-    "token": "Token"
+    "token": "Token",
+    "asymmetric": "Asymmetric Crypto"
   },
   "home": {
     "title": "DevKitly",
@@ -29,10 +29,10 @@
     "qrDesc": "Generate text or Wi-Fi QR codes",
     "uuidDesc": "Generate v4/v5 unique identifiers",
     "passwordDesc": "Generate custom random passwords",
-    "hashDesc": "Calculate MD5/SHA-256 text hashes",
+    "digestDesc": "Calculate MD5/SHA-256 digest of text or files",
     "codecDesc": "Convert between Base64/Hex/URL formats",
-    "fileHashDesc": "Calculate file MD5/SHA-256 hashes",
-    "tokenDesc": "Generate custom prefix random tokens"
+    "tokenDesc": "Generate custom prefix random tokens",
+    "asymmetricDesc": "RSA key pair generation, public key encryption and private key decryption"
   },
   "qr": {
     "title": "QR Code Generator",
@@ -81,14 +81,52 @@
     "atLeastOneCategory": "At least one character category must be selected",
     "lengthRange": "Password length must be between 4 and 256"
   },
-  "hash": {
-    "title": "Text Hash",
-    "description": "Calculate text hashes using MD5 and SHA-256 algorithms",
-    "algorithm": "Algorithm",
+  "digest": {
+    "title": "Digest Calculator",
+    "description": "Calculate MD5/SHA-256 digest of text or files",
+    "inputType": "Input Type",
     "text": "Text",
-    "textPlaceholder": "Enter text to hash",
-    "textRequired": "Please enter text to hash",
-    "unknown": "An unknown error occurred while calculating hash"
+    "file": "File",
+    "algorithm": "Algorithm",
+    "textInput": "Text Content",
+    "textInputPlaceholder": "Enter text to calculate digest",
+    "textRequired": "Please enter text to calculate",
+    "upload": "Upload File",
+    "fileSizeLimit": "File size cannot exceed 100 MB",
+    "fileRequired": "Please upload a file",
+    "calculating": "Calculating...",
+    "unknown": "An unknown error occurred while calculating digest"
+  },
+  "asymmetric": {
+    "title": "Asymmetric Encryption",
+    "description": "RSA key pair generation, public key encryption and private key decryption",
+    "mode": "Mode",
+    "generate": "Generate Keys",
+    "encrypt": "Encrypt",
+    "decrypt": "Decrypt",
+    "keySize": "Key Size",
+    "publicKey": "Public Key",
+    "privateKey": "Private Key",
+    "publicKeyPlaceholder": "Enter public key in PEM format",
+    "privateKeyPlaceholder": "Enter private key in PEM format",
+    "plaintext": "Plaintext",
+    "plaintextPlaceholder": "Enter text to encrypt",
+    "ciphertext": "Ciphertext",
+    "ciphertextPlaceholder": "Enter Base64-encoded ciphertext",
+    "publicKeyRequired": "Please enter a public key",
+    "privateKeyRequired": "Please enter a private key",
+    "plaintextRequired": "Please enter text to encrypt",
+    "ciphertextRequired": "Please enter ciphertext to decrypt",
+    "invalidPublicKey": "Invalid public key format",
+    "invalidPrivateKey": "Invalid private key format",
+    "plaintextTooLong": "Plaintext too long to encrypt",
+    "decryptFailed": "Decryption failed, ciphertext does not match private key",
+    "generateKeyFailed": "Failed to generate key pair",
+    "encryptFailed": "Encryption failed",
+    "webCryptoUnsupported": "Your browser does not support asymmetric encryption",
+    "generating": "Generating...",
+    "encrypting": "Encrypting...",
+    "decrypting": "Decrypting..."
   },
   "codec": {
     "title": "Encode/Decode",
@@ -101,16 +139,6 @@
     "sameFormat": "Source and target formats cannot be the same",
     "invalidInput": "Input text does not match source format",
     "unknown": "An unknown error occurred while converting"
-  },
-  "fileHash": {
-    "title": "File Hash",
-    "description": "Upload files to calculate MD5 or SHA-256 hash values",
-    "algorithm": "Algorithm",
-    "upload": "Upload File",
-    "fileSizeLimit": "File size cannot exceed 100 MB",
-    "fileRequired": "Please upload a file",
-    "calculating": "Calculating...",
-    "unknown": "An unknown error occurred while calculating file hash"
   },
   "token": {
     "title": "Token Generator",
@@ -142,11 +170,12 @@
     "xApiPasswordDesc": "Auth password, required when server PASSWORD env is set",
     "xApiLangDesc": "Response language, zh-cn (default) / en-us",
     "qr": {
-      "typeDesc": "QR code type, \"text\" or \"wifi\"",
+      "typeDesc": "QR code type, \"text\", \"wifi\", or \"image\"",
       "contentDesc": "Text content (required when type is text, max 256 characters)",
       "ssidDesc": "Wi-Fi network name (required when type is wifi)",
       "passwordDesc": "Wi-Fi password (required when type is wifi)",
-      "encryptionDesc": "Encryption type, \"WPA\", \"WEP\", or \"nopass\" (required when type is wifi)"
+      "encryptionDesc": "Encryption type, \"WPA\", \"WEP\", or \"nopass\" (required when type is wifi)",
+      "imageDesc": "Image file (multipart/form-data, required when type is image, max 2MB)"
     },
     "uuid": {
       "versionDesc": "UUID version, \"v4\" or \"v5\"",
@@ -162,18 +191,24 @@
       "includeSymbolDesc": "Include symbols, default true",
       "customSymbolsDesc": "Custom symbol set, leave empty for default"
     },
-    "hash": {
-      "algorithmDesc": "Hash algorithm, \"md5\" or \"sha256\"",
-      "textDesc": "Text content to hash"
+    "digest": {
+      "inputTypeDesc": "Input type, \"text\" or \"file\"",
+      "algorithmDesc": "Digest algorithm, \"md5\" or \"sha256\"",
+      "textDesc": "Text content to calculate (required when inputType is text)",
+      "fileDesc": "File to upload (multipart/form-data, required when inputType is file), max 100MB"
     },
     "codec": {
       "fromDesc": "Source format, \"base64\", \"hex\", \"utf8\", \"unicode\", or \"url\"",
       "toDesc": "Target format, \"base64\", \"hex\", \"utf8\", \"unicode\", or \"url\"",
       "textDesc": "Text content to convert"
     },
-    "fileHash": {
-      "fileDesc": "File to upload (multipart/form-data), max 100MB",
-      "algorithmDesc": "Hash algorithm, \"md5\" or \"sha256\""
+    "asymmetric": {
+      "modeDesc": "Operation mode, \"generate\", \"encrypt\", or \"decrypt\"",
+      "keySizeDesc": "Key size, 2048 or 4096, default 2048 (optional when mode is generate)",
+      "publicKeyDesc": "Public key in PEM format (required when mode is encrypt)",
+      "plaintextDesc": "Plaintext to encrypt (required when mode is encrypt)",
+      "privateKeyDesc": "Private key in PEM format (required when mode is decrypt)",
+      "ciphertextDesc": "Base64-encoded ciphertext (required when mode is decrypt)"
     },
     "token": {
       "prefixDesc": "Token prefix, optional, max 16 characters",

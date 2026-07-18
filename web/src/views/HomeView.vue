@@ -9,8 +9,8 @@ import {
   KeyOutline,
   ShieldCheckmarkOutline,
   CodeWorkingOutline,
-  DocumentTextOutline,
   FingerPrintOutline,
+  LockClosedOutline,
 } from '@vicons/ionicons5';
 import { useHistory } from '@/composables/useHistory';
 import { useResponsive } from '@/composables/useResponsive';
@@ -33,10 +33,10 @@ const allFeatures: FeatureCard[] = [
   { id: 'qr', icon: QrCodeOutline, route: '/qr', descKey: 'home.qrDesc' },
   { id: 'uuid', icon: AtOutline, route: '/uuid', descKey: 'home.uuidDesc' },
   { id: 'password', icon: KeyOutline, route: '/password', descKey: 'home.passwordDesc' },
-  { id: 'hash', icon: ShieldCheckmarkOutline, route: '/hash', descKey: 'home.hashDesc' },
+  { id: 'digest', icon: ShieldCheckmarkOutline, route: '/digest', descKey: 'home.digestDesc' },
   { id: 'codec', icon: CodeWorkingOutline, route: '/codec', descKey: 'home.codecDesc' },
-  { id: 'file-hash', icon: DocumentTextOutline, route: '/file-hash', descKey: 'home.fileHashDesc' },
   { id: 'token', icon: FingerPrintOutline, route: '/token', descKey: 'home.tokenDesc' },
+  { id: 'asymmetric', icon: LockClosedOutline, route: '/asymmetric', descKey: 'home.asymmetricDesc' },
 ];
 
 const featureMap = new Map(allFeatures.map((f) => [f.id, f]));
@@ -56,7 +56,7 @@ const hasHistory = computed(
 );
 
 function getFeatureName(id: FeatureId): string {
-  return t(`nav.${id === 'file-hash' ? 'fileHash' : id}`);
+  return t(`nav.${id}`);
 }
 
 function navigateTo(route: string) {

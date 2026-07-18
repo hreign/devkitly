@@ -3,6 +3,16 @@ import type { FeatureId, UsageHistory } from '@/types';
 const STORAGE_KEY = 'devkitly-history';
 const MAX_RECORDS = 500;
 
+// 旧 FeatureId 到新 FeatureId 的映射
+const LEGACY_FEATURE_MAP: Partial<Record<string, FeatureId>> = {
+  'hash': 'digest',
+  'file-hash': 'digest',
+};
+
+function mapFeatureId(id: string): FeatureId {
+  return (LEGACY_FEATURE_MAP[id] as FeatureId) || (id as FeatureId);
+}
+
 function isLocalStorageAvailable(): boolean {
   try {
     const testKey = '__test__';
@@ -50,7 +60,7 @@ export function useHistory() {
     const seen = new Set<FeatureId>();
     const result: FeatureId[] = [];
     for (let i = history.records.length - 1; i >= 0; i--) {
-      const id = history.records[i].featureId;
+      const id = mapFeatureId(history.records[i].featureId);
       if (!seen.has(id)) {
         seen.add(id);
         result.push(id);
@@ -64,7 +74,8 @@ export function useHistory() {
     const history = loadHistory();
     const countMap = new Map<FeatureId, number>();
     for (const record of history.records) {
-      countMap.set(record.featureId, (countMap.get(record.featureId) || 0) + 1);
+      const id = mapFeatureId(record.featureId);
+      countMap.set(id, (countMap.get(id) || 0) + 1);
     }
     return Array.from(countMap.entries())
       .sort((a, b) => b[1] - a[1])

@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, { Express } from 'express';
+import morgan from 'morgan';
 import { i18nMiddleware } from './middlewares/i18n.js';
 import { authMiddleware } from './middlewares/auth.js';
 import { errorHandler } from './middlewares/error-handler.js';
@@ -10,11 +11,16 @@ import hashRouter from './routes/hash.js';
 import codecRouter from './routes/codec.js';
 import fileHashRouter from './routes/file-hash.js';
 import tokenRouter from './routes/token.js';
+import digestRouter from './routes/digest.js';
+import asymmetricRouter from './routes/asymmetric.js';
 
 const app: Express = express();
 
 // 中间件
 app.use(express.json());
+
+// 请求日志
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 // 国际化（需在鉴权之前，确保鉴权错误消息也支持国际化）
 app.use(i18nMiddleware);
@@ -30,6 +36,8 @@ app.use('/hash', hashRouter);
 app.use('/codec', codecRouter);
 app.use('/file-hash', fileHashRouter);
 app.use('/token', tokenRouter);
+app.use('/digest', digestRouter);
+app.use('/asymmetric', asymmetricRouter);
 
 // 错误处理
 app.use(errorHandler);

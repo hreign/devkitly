@@ -108,6 +108,12 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
         required: false,
         description: t('apiDoc.qr.encryptionDesc'),
       },
+      {
+        name: 'file',
+        type: 'File',
+        required: false,
+        description: t('apiDoc.qr.imageDesc'),
+      },
     ],
     response: `{
   "code": 0,
@@ -217,22 +223,34 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
   -H "x-api-lang: zh-cn" \\
   -d '{"length":16,"includeUpper":true,"includeLower":true,"includeNumber":true,"includeSymbol":true}'`,
   },
-  hash: {
-    path: '/hash',
+  digest: {
+    path: '/digest',
     method: 'POST',
     headers: commonHeaders,
     params: [
       {
+        name: 'inputType',
+        type: 'string',
+        required: true,
+        description: t('apiDoc.digest.inputTypeDesc'),
+      },
+      {
         name: 'algorithm',
         type: 'string',
         required: true,
-        description: t('apiDoc.hash.algorithmDesc'),
+        description: t('apiDoc.digest.algorithmDesc'),
       },
       {
         name: 'text',
         type: 'string',
-        required: true,
-        description: t('apiDoc.hash.textDesc'),
+        required: false,
+        description: t('apiDoc.digest.textDesc'),
+      },
+      {
+        name: 'file',
+        type: 'File',
+        required: false,
+        description: t('apiDoc.digest.fileDesc'),
       },
     ],
     response: `{
@@ -242,10 +260,67 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
     "hash": "string"
   }
 }`,
-    curlExample: `curl -X POST ${baseUrl.value}/hash \\
+    curlExample: `curl -X POST ${baseUrl.value}/digest \\
   -H "Content-Type: application/json" \\
   -H "x-api-lang: zh-cn" \\
-  -d '{"algorithm":"sha256","text":"Hello World"}'`,
+  -d '{"inputType":"text","algorithm":"sha256","text":"Hello World"}'`,
+  },
+  asymmetric: {
+    path: '/asymmetric',
+    method: 'POST',
+    headers: commonHeaders,
+    params: [
+      {
+        name: 'mode',
+        type: 'string',
+        required: true,
+        description: t('apiDoc.asymmetric.modeDesc'),
+      },
+      {
+        name: 'keySize',
+        type: 'number',
+        required: false,
+        description: t('apiDoc.asymmetric.keySizeDesc'),
+      },
+      {
+        name: 'publicKey',
+        type: 'string',
+        required: false,
+        description: t('apiDoc.asymmetric.publicKeyDesc'),
+      },
+      {
+        name: 'plaintext',
+        type: 'string',
+        required: false,
+        description: t('apiDoc.asymmetric.plaintextDesc'),
+      },
+      {
+        name: 'privateKey',
+        type: 'string',
+        required: false,
+        description: t('apiDoc.asymmetric.privateKeyDesc'),
+      },
+      {
+        name: 'ciphertext',
+        type: 'string',
+        required: false,
+        description: t('apiDoc.asymmetric.ciphertextDesc'),
+      },
+    ],
+    response: `{
+  "code": 0,
+  "msg": "成功",
+  "data": {
+    "publicKey": "string",
+    "privateKey": "string",
+    "ciphertext": "string",
+    "plaintext": "string"
+  }
+}`,
+    curlExample: `curl -X POST ${baseUrl.value}/asymmetric \\
+  -H "Content-Type: application/json" \\
+  -H "x-api-lang: zh-cn" \\
+  -d '{"mode":"generate","keySize":2048}'`,
   },
   codec: {
     path: '/codec',
@@ -282,36 +357,6 @@ const apiDocs: Record<FeatureId, ApiDoc> = {
   -H "Content-Type: application/json" \\
   -H "x-api-lang: zh-cn" \\
   -d '{"from":"utf8","to":"base64","text":"Hello World"}'`,
-  },
-  'file-hash': {
-    path: '/file-hash',
-    method: 'POST',
-    headers: commonHeaders,
-    params: [
-      {
-        name: 'file',
-        type: 'File',
-        required: true,
-        description: t('apiDoc.fileHash.fileDesc'),
-      },
-      {
-        name: 'algorithm',
-        type: 'string',
-        required: true,
-        description: t('apiDoc.fileHash.algorithmDesc'),
-      },
-    ],
-    response: `{
-  "code": 0,
-  "msg": "成功",
-  "data": {
-    "hash": "string"
-  }
-}`,
-    curlExample: `curl -X POST ${baseUrl.value}/file-hash \\
-  -H "x-api-lang: zh-cn" \\
-  -F "file=@/path/to/file" \\
-  -F "algorithm=sha256"`,
   },
   token: {
     path: '/token',

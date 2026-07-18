@@ -21,13 +21,13 @@ import {
   KeyOutline,
   ShieldCheckmarkOutline,
   CodeWorkingOutline,
-  DocumentTextOutline,
   FingerPrintOutline,
   AtOutline,
   SunnyOutline,
   MoonOutline,
   LanguageOutline,
   MenuOutline,
+  LockClosedOutline,
 } from '@vicons/ionicons5';
 import { useThemeStore } from '@/stores/theme';
 import { useLocaleStore } from '@/stores/locale';
@@ -56,8 +56,8 @@ const menuOptions = computed(() => [
     icon: renderIcon(KeyOutline),
   },
   {
-    label: t('nav.hash'),
-    key: '/hash',
+    label: t('nav.digest'),
+    key: '/digest',
     icon: renderIcon(ShieldCheckmarkOutline),
   },
   {
@@ -66,14 +66,14 @@ const menuOptions = computed(() => [
     icon: renderIcon(CodeWorkingOutline),
   },
   {
-    label: t('nav.fileHash'),
-    key: '/file-hash',
-    icon: renderIcon(DocumentTextOutline),
-  },
-  {
     label: t('nav.token'),
     key: '/token',
     icon: renderIcon(FingerPrintOutline),
+  },
+  {
+    label: t('nav.asymmetric'),
+    key: '/asymmetric',
+    icon: renderIcon(LockClosedOutline),
   },
 ]);
 

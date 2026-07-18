@@ -1,6 +1,15 @@
 // QR 码类型
-export type QrType = 'text' | 'wifi';
+export type QrType = 'text' | 'wifi' | 'image';
 export type WifiEncryption = 'WPA' | 'WEP' | 'nopass';
+
+// 摘要输入类型
+export type DigestInputType = 'text' | 'file';
+
+// 非对称加密操作模式
+export type AsymmetricMode = 'generate' | 'encrypt' | 'decrypt';
+
+// RSA 密钥长度
+export type RsaKeySize = 2048 | 4096;
 
 // UUID 版本
 export type UuidVersion = 'v4' | 'v5';
@@ -23,6 +32,8 @@ export const ErrorCodes = {
   SUCCESS: 0,
   PARAM_ERROR: 1000,
   UNSUPPORTED_TYPE: 1001,
+  INVALID_FORMAT: 1002,
+  DATA_TOO_LARGE: 1003,
   FILE_IO_ERROR: 2000,
   UNAUTHORIZED: 4001,
 } as const;

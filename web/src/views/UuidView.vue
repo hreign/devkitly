@@ -6,7 +6,6 @@ import {
   NForm,
   NFormItem,
   NInput,
-  NSelect,
   NInputNumber,
   NButton,
   NIcon,
@@ -20,6 +19,7 @@ import { useResponsive } from '@/composables/useResponsive';
 import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import TabRadioGroup from '@/components/TabRadioGroup.vue';
 import type { UuidVersion } from '@/types';
 
 const { t } = useI18n();
@@ -74,7 +74,7 @@ async function copyItem(uuid: string, index: number) {
     <NCard class="form-card">
       <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('uuid.version')">
-          <NSelect v-model:value="version" :options="versionOptions" />
+          <TabRadioGroup v-model="version" :options="versionOptions" :aria-label="t('uuid.version')" />
         </NFormItem>
         <template v-if="version === 'v5'">
           <NFormItem :label="t('uuid.namespace')">

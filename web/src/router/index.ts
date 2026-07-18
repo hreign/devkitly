@@ -24,9 +24,13 @@ const router = createRouter({
       component: () => import('@/views/PasswordView.vue'),
     },
     {
+      path: '/digest',
+      name: 'digest',
+      component: () => import('@/views/DigestView.vue'),
+    },
+    {
       path: '/hash',
-      name: 'hash',
-      component: () => import('@/views/HashView.vue'),
+      redirect: '/digest',
     },
     {
       path: '/codec',
@@ -35,13 +39,17 @@ const router = createRouter({
     },
     {
       path: '/file-hash',
-      name: 'file-hash',
-      component: () => import('@/views/FileHashView.vue'),
+      redirect: { path: '/digest', query: { type: 'file' } },
     },
     {
       path: '/token',
       name: 'token',
       component: () => import('@/views/TokenView.vue'),
+    },
+    {
+      path: '/asymmetric',
+      name: 'asymmetric',
+      component: () => import('@/views/AsymmetricView.vue'),
     },
   ],
 });

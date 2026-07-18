@@ -15,10 +15,10 @@
     "qr": "QR 码",
     "uuid": "UUID",
     "password": "随机密码",
-    "hash": "文本散列",
+    "digest": "摘要计算",
     "codec": "编码/解码",
-    "fileHash": "文件哈希",
-    "token": "Token"
+    "token": "Token",
+    "asymmetric": "非对称加密"
   },
   "home": {
     "title": "DevKitly",
@@ -29,10 +29,10 @@
     "qrDesc": "生成文本或 Wi-Fi 二维码",
     "uuidDesc": "生成 v4/v5 版本唯一标识符",
     "passwordDesc": "生成自定义随机密码",
-    "hashDesc": "计算文本的 MD5/SHA-256 散列值",
+    "digestDesc": "计算文本或文件的 MD5/SHA-256 摘要值",
     "codecDesc": "Base64/Hex/URL 等格式互转",
-    "fileHashDesc": "计算文件的 MD5/SHA-256 哈希值",
-    "tokenDesc": "生成自定义前缀的随机令牌"
+    "tokenDesc": "生成自定义前缀的随机令牌",
+    "asymmetricDesc": "RSA 密钥对生成、公钥加密与私钥解密"
   },
   "qr": {
     "title": "QR 码生成",
@@ -81,14 +81,52 @@
     "atLeastOneCategory": "至少勾选一种字符类别",
     "lengthRange": "密码长度范围为 4-256"
   },
-  "hash": {
-    "title": "文本散列",
-    "description": "支持 MD5 和 SHA-256 算法的文本散列计算",
-    "algorithm": "算法",
+  "digest": {
+    "title": "摘要计算",
+    "description": "计算文本或文件的 MD5/SHA-256 摘要值",
+    "inputType": "输入类型",
     "text": "文本",
-    "textPlaceholder": "请输入待散列的文本",
-    "textRequired": "请输入待散列的文本",
-    "unknown": "计算散列时发生未知错误"
+    "file": "文件",
+    "algorithm": "算法",
+    "textInput": "文本内容",
+    "textInputPlaceholder": "请输入待计算的文本",
+    "textRequired": "请输入待计算的文本",
+    "upload": "上传文件",
+    "fileSizeLimit": "文件大小不能超过 100 MB",
+    "fileRequired": "请上传文件",
+    "calculating": "计算中...",
+    "unknown": "计算摘要时发生未知错误"
+  },
+  "asymmetric": {
+    "title": "非对称加密",
+    "description": "RSA 密钥对生成、公钥加密与私钥解密",
+    "mode": "操作模式",
+    "generate": "生成密钥",
+    "encrypt": "加密",
+    "decrypt": "解密",
+    "keySize": "密钥长度",
+    "publicKey": "公钥",
+    "privateKey": "私钥",
+    "publicKeyPlaceholder": "请输入 PEM 格式的公钥",
+    "privateKeyPlaceholder": "请输入 PEM 格式的私钥",
+    "plaintext": "明文",
+    "plaintextPlaceholder": "请输入待加密的文本",
+    "ciphertext": "密文",
+    "ciphertextPlaceholder": "请输入 Base64 编码的密文",
+    "publicKeyRequired": "请输入公钥",
+    "privateKeyRequired": "请输入私钥",
+    "plaintextRequired": "请输入待加密的文本",
+    "ciphertextRequired": "请输入待解密的密文",
+    "invalidPublicKey": "公钥格式无效",
+    "invalidPrivateKey": "私钥格式无效",
+    "plaintextTooLong": "明文过长，无法加密",
+    "decryptFailed": "解密失败，密文与私钥不匹配",
+    "generateKeyFailed": "生成密钥对失败",
+    "encryptFailed": "加密失败",
+    "webCryptoUnsupported": "当前浏览器不支持非对称加密功能",
+    "generating": "生成中...",
+    "encrypting": "加密中...",
+    "decrypting": "解密中..."
   },
   "codec": {
     "title": "编码/解码转换",
@@ -101,16 +139,6 @@
     "sameFormat": "源格式与目标格式不能相同",
     "invalidInput": "输入文本不符合源格式",
     "unknown": "转换时发生未知错误"
-  },
-  "fileHash": {
-    "title": "文件哈希计算",
-    "description": "上传文件计算 MD5 或 SHA-256 哈希值",
-    "algorithm": "算法",
-    "upload": "上传文件",
-    "fileSizeLimit": "文件大小不能超过 100 MB",
-    "fileRequired": "请上传文件",
-    "calculating": "计算中...",
-    "unknown": "计算文件哈希时发生未知错误"
   },
   "token": {
     "title": "Token 生成",
@@ -142,11 +170,12 @@
     "xApiPasswordDesc": "鉴权密码，服务端配置 PASSWORD 环境变量时必填",
     "xApiLangDesc": "响应语言标识，可选 zh-cn（默认）/ en-us",
     "qr": {
-      "typeDesc": "二维码类型，可选 text 或 wifi",
+      "typeDesc": "二维码类型，可选 text、wifi 或 image",
       "contentDesc": "文本内容（type 为 text 时必填，最多 256 字符）",
       "ssidDesc": "Wi-Fi 网络名称（type 为 wifi 时必填）",
       "passwordDesc": "Wi-Fi 密码（type 为 wifi 时必填）",
-      "encryptionDesc": "加密方式，可选 WPA、WEP、nopass（type 为 wifi 时必填）"
+      "encryptionDesc": "加密方式，可选 WPA、WEP、nopass（type 为 wifi 时必填）",
+      "imageDesc": "图片文件（multipart/form-data，type 为 image 时必填，最大 2MB）"
     },
     "uuid": {
       "versionDesc": "UUID 版本，可选 v4 或 v5",
@@ -162,18 +191,24 @@
       "includeSymbolDesc": "是否包含特殊符号，默认 true",
       "customSymbolsDesc": "自定义符号集合，留空使用默认符号"
     },
-    "hash": {
-      "algorithmDesc": "散列算法，可选 md5 或 sha256",
-      "textDesc": "待散列的文本内容"
+    "digest": {
+      "inputTypeDesc": "输入类型，可选 text 或 file",
+      "algorithmDesc": "摘要算法，可选 md5 或 sha256",
+      "textDesc": "待计算的文本内容（inputType 为 text 时必填）",
+      "fileDesc": "上传的文件（multipart/form-data，inputType 为 file 时必填），最大 100MB"
     },
     "codec": {
       "fromDesc": "源格式，可选 base64、hex、utf8、unicode、url",
       "toDesc": "目标格式，可选 base64、hex、utf8、unicode、url",
       "textDesc": "待转换的文本内容"
     },
-    "fileHash": {
-      "fileDesc": "上传的文件（multipart/form-data），最大 100MB",
-      "algorithmDesc": "散列算法，可选 md5 或 sha256"
+    "asymmetric": {
+      "modeDesc": "操作模式，可选 generate、encrypt 或 decrypt",
+      "keySizeDesc": "密钥长度，可选 2048 或 4096，默认 2048（mode 为 generate 时可选）",
+      "publicKeyDesc": "PEM 格式的公钥（mode 为 encrypt 时必填）",
+      "plaintextDesc": "待加密的明文（mode 为 encrypt 时必填）",
+      "privateKeyDesc": "PEM 格式的私钥（mode 为 decrypt 时必填）",
+      "ciphertextDesc": "Base64 编码的密文（mode 为 decrypt 时必填）"
     },
     "token": {
       "prefixDesc": "Token 前缀，可选，最多 16 字符",

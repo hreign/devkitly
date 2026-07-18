@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   NCard,
@@ -17,6 +18,7 @@ import { useResponsive } from '@/composables/useResponsive';
 import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import TabRadioGroup from '@/components/TabRadioGroup.vue';
 import type { QrType, WifiEncryption } from '@/types';
 
 const { t } = useI18n();
@@ -33,10 +35,10 @@ const ssid = usePersistedRef<string>('devkitly-qr-ssid', '');
 const wifiPassword = usePersistedRef<string>('devkitly-qr-wifi-password', '');
 const encryption = usePersistedRef<WifiEncryption | null>('devkitly-qr-encryption', null);
 
-const typeOptions = [
-  { label: () => t('qr.text'), value: 'text' },
-  { label: () => t('qr.wifi'), value: 'wifi' },
-];
+const typeOptions = computed(() => [
+  { label: t('qr.text'), value: 'text' },
+  { label: t('qr.wifi'), value: 'wifi' },
+]);
 
 const encryptionOptions = [
   { label: 'WPA', value: 'WPA' },
@@ -79,6 +81,7 @@ async function handleGenerate() {
     recordUsage('qr');
   }
 }
+
 </script>
 
 <template>
@@ -91,7 +94,7 @@ async function handleGenerate() {
     <NCard class="form-card">
       <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('qr.type')">
-          <NSelect v-model:value="qrType" :options="typeOptions" />
+          <TabRadioGroup v-model="qrType" :options="typeOptions" :aria-label="t('qr.type')" />
         </NFormItem>
         <template v-if="qrType === 'text'">
           <NFormItem :label="t('qr.content')">

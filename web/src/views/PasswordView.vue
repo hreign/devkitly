@@ -5,7 +5,7 @@ import {
   NForm,
   NFormItem,
   NInputNumber,
-  NCheckbox,
+  NSwitch,
   NInput,
   NButton,
   useMessage,
@@ -62,16 +62,16 @@ function handleGenerate() {
           <NInputNumber v-model:value="length" :min="4" :max="256" style="width: 100%;" />
         </NFormItem>
         <NFormItem :label="t('password.includeUpper')">
-          <NCheckbox v-model:checked="includeUpper" />
+          <NSwitch v-model:value="includeUpper" />
         </NFormItem>
         <NFormItem :label="t('password.includeLower')">
-          <NCheckbox v-model:checked="includeLower" />
+          <NSwitch v-model:value="includeLower" />
         </NFormItem>
         <NFormItem :label="t('password.includeNumber')">
-          <NCheckbox v-model:checked="includeNumber" />
+          <NSwitch v-model:value="includeNumber" />
         </NFormItem>
         <NFormItem :label="t('password.includeSymbol')">
-          <NCheckbox v-model:checked="includeSymbol" />
+          <NSwitch v-model:value="includeSymbol" />
         </NFormItem>
         <NFormItem v-if="includeSymbol" :label="t('password.customSymbols')">
           <NInput v-model:value="customSymbols" :placeholder="t('password.customSymbolsPlaceholder')" />

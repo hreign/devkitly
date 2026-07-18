@@ -5,7 +5,6 @@ import {
   NForm,
   NFormItem,
   NInput,
-  NSelect,
   NButton,
   useMessage,
 } from 'naive-ui';
@@ -16,6 +15,7 @@ import { usePersistedRef } from '@/composables/usePersistedRef';
 import ApiDocModal from '@/components/ApiDocModal.vue';
 import ResultDisplay from '@/components/ResultDisplay.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import TabRadioGroup from '@/components/TabRadioGroup.vue';
 import type { HashAlgorithm } from '@/types';
 
 const { t } = useI18n();
@@ -38,7 +38,7 @@ function handleCalculate() {
   if (error.value) {
     message.warning(t(`hash.${error.value}`));
   } else {
-    recordUsage('hash');
+    recordUsage('digest');
   }
 }
 </script>
@@ -47,13 +47,13 @@ function handleCalculate() {
   <div class="page-view">
     <div class="page-header-row">
       <PageHeader :title="t('hash.title')" :description="t('hash.description')" />
-      <ApiDocModal feature-id="hash" />
+      <ApiDocModal feature-id="digest" />
     </div>
 
     <NCard class="form-card">
       <NForm :label-placement="isMobile ? 'top' : 'left'" :label-width="labelWidth">
         <NFormItem :label="t('hash.algorithm')">
-          <NSelect v-model:value="algorithm" :options="algorithmOptions" />
+          <TabRadioGroup v-model="algorithm" :options="algorithmOptions" :aria-label="t('hash.algorithm')" />
         </NFormItem>
         <NFormItem :label="t('hash.text')">
           <NInput

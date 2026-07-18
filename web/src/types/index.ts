@@ -3,10 +3,10 @@ export type FeatureId =
   | 'qr'
   | 'uuid'
   | 'password'
-  | 'hash'
+  | 'digest'
   | 'codec'
-  | 'file-hash'
-  | 'token';
+  | 'token'
+  | 'asymmetric';
 
 // 使用记录
 interface UsageRecord {
@@ -22,6 +22,15 @@ export interface UsageHistory {
 // QR 码类型
 export type QrType = 'text' | 'wifi';
 export type WifiEncryption = 'WPA' | 'WEP' | 'nopass';
+
+// 摘要输入类型
+export type DigestInputType = 'text' | 'file';
+
+// 非对称加密操作模式
+export type AsymmetricMode = 'generate' | 'encrypt' | 'decrypt';
+
+// RSA 密钥长度
+export type RsaKeySize = 2048 | 4096;
 
 // UUID 版本
 export type UuidVersion = 'v4' | 'v5';
